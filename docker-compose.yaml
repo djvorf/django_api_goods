@@ -1,0 +1,48 @@
+version: "3.9"
+services:
+  nginx:
+    build: ./nginx
+    ports:
+      - 1300:80
+    volumes:
+      - ./staticfiles:/goods_api/static_volume
+    depends_on:
+      - goods_api
+    restart: "on-failure"
+
+  goods_api:
+    container_name: goods_api
+    build: .
+    volumes:
+      - ./staticfiles:/goods_api/static_volume
+    environment:
+      - SECRET_KEY=csdmklcmklLK#MKMFCLKMDLKvmklsmdlkvmvlmdslkvsmdvl
+      - PG_DB_NAME=postgres
+      - PG_USER=postgres
+      - PG_PASSWORD=postgres
+      - PG_HOST=postgres
+      - PG_PORT=5432
+    ports:
+      - "8000:8000"
+    expose:
+      - 8000
+    depends_on:
+      - postgres
+    restart: always
+
+  postgres:
+    container_name: postgres
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: always
+
+volumes:
+  postgres_data:
+  static_volume:

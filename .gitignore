@@ -6,3 +6,6 @@ media
 local.env
 .env
 helm
+postgres_data
+static_volume
+staticfiles
