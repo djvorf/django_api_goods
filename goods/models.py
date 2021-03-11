@@ -13,7 +13,7 @@ class Goods(TimeStampedModel):
     time = models.TimeField('Во-сколько')
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
     class Meta:
         verbose_name = 'Груз'
