@@ -1,9 +1,12 @@
 FROM python:3.9
-ENV PYTHONUNBUFFERED=1
-ENV PYTHONDONTWRITEBYTECODE=1
 
-WORKDIR /goods_api
-COPY requirements /goods_api/requirements
-RUN pip install -r requirements/prod.txt
-COPY . /goods_api/
-CMD gunicorn config.wsgi:application --bind 0.0.0.0:8000
+WORKDIR /usr/src/api_goods
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+RUN pip install --upgrade pip
+COPY ./requirements .
+RUN pip install -r prod.txt
+
+COPY . .
