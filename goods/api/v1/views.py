@@ -10,11 +10,9 @@ class GoodsMixin:
 
     def get_queryset(self):
         queryset = Goods.objects.values('id', 'where_from', 'where_to', 'date', 'time')
-        print(f"context: {queryset}")
         return queryset
 
     def render_to_response(self, context, **response_kwargs):
-        print(f"context: {context}")
         return JsonResponse(context)
 
 
